@@ -46,8 +46,19 @@ public class App
 		// TODO Auto-generated method stub
 		showMenu();
 	}
-	private static void modify() throws IOException {
-		// TODO Auto-generated method stub
+	private static void modify() throws IOException, SQLException {
+		String newName = "";
+		int id = 0;
+		System.out.println("What number are you looking for?");
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		id = Integer.parseInt(reader.readLine());
+		System.out.println("Enter the new name: ");
+		newName = reader.readLine();
+		Connection connection =
+				DriverManager.getConnection("jdbc:sqlite:test.db");
+		Statement statement = connection.createStatement();
+		String updateSql = "update friends set name='" + newName + "',id=" + id + " where id=" + id;
+		statement.executeUpdate(updateSql);
 		showMenu();
 	}
 	private static void insert() throws IOException, SQLException {
@@ -91,12 +102,12 @@ public class App
 		showMenu();
 	}
 	public static void showMenu() throws IOException {
-		System.out.println("0. Create database");
-    	System.out.println( "1. Show all registres" );
-		System.out.println( "2. Insert new registre" );
-		System.out.println( "3. Modify registre" );
-		System.out.println( "4. Delete registre" );
-		System.out.println( "5. Delete all registres" );
+		//System.out.println("0. Create database(can be selected once)");
+    	System.out.println( "1. Show all registers" );
+		System.out.println( "2. Insert new registers" );
+		System.out.println( "3. Modify register" );
+		System.out.println( "4. Delete register" );
+		System.out.println( "5. Delete all registers" );
 		System.out.println( "6. Exit" );
 		while (cancel) {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -124,8 +135,7 @@ public class App
 		
 		switch (number) {
     	case 6:
-    		createDatabase();
-   System.out.println("Created database");
+    		System.out.println("Bye!");
     		break;
     	case 1: 
     		showAll();
