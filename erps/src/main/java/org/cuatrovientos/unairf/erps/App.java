@@ -21,9 +21,9 @@ public class App
 	private static int option;
 	private static boolean cancel = true;
 	private static int number = 10;
+	
     public static void main( String[] args ) throws ClassNotFoundException, SQLException, IOException {
     	
-		
     showMenu();
        
     }
@@ -50,12 +50,42 @@ public class App
 		// TODO Auto-generated method stub
 		showMenu();
 	}
-	private static void insert() throws IOException {
+	private static void insert() throws IOException, SQLException {
 		// TODO Auto-generated method stub
+		Connection connection =
+				DriverManager.getConnection("jdbc:sqlite:test.db");
+		Statement statement = connection.createStatement();
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		System.out.println("Input a number: ");
+		String line1 = reader.readLine();
+		int id = Integer.parseInt(line1);
+		System.out.println("Input a name: ");
+		String line2 = reader.readLine();
+		String insertSql = "insert into friends values(" + id + ",\"" + line2 + "\")";
+		statement.executeUpdate(insertSql);
+		//This should be done by following next method, it will be implemented in the future
+		//PreparedStatement preparedStatement =
+			//	connection.prepareStatement("insert into friends values (?,?)");
+		//preparedStatement.setInt(1,7);
+		//preparedStatement.setString(2, "Endika");
+		//preparedStatement.addBatch();
+		
 		showMenu();
 	}
-	private static void showAll() throws IOException {
+	private static void showAll() throws IOException, SQLException {
 		System.out.println("Showing all");
+		Connection connection =
+				DriverManager.getConnection("jdbc:sqlite:test.db");
+		
+		Statement statement = connection.createStatement();
+		String select = "select * from friends order by name desc";
+		ResultSet resultSet = statement.executeQuery(select);
+		while (resultSet.next()) {
+			//System.out.print("ID: " + resultSet.getString(1));
+			//System.out.println(" Name: " + resultSet.getString(2));
+			System.out.print("ID: " + resultSet.getInt("id"));
+			System.out.println(" Name: " + resultSet.getString("name"));
+		}
 		
 		
 		showMenu();
