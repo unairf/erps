@@ -39,11 +39,20 @@ public class App
 		statement.executeUpdate(insertSql);
 	}
 	private static void deleteAll() throws IOException {
-		// TODO Auto-generated method stub
+		
+		
 		showMenu();
 	}
-	private static void delete() throws IOException {
-		// TODO Auto-generated method stub
+	private static void delete() throws IOException, SQLException {
+		int id;
+		System.out.println("What ID do you want to delete?");
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		id = Integer.parseInt(reader.readLine());
+		Connection connection =
+				DriverManager.getConnection("jdbc:sqlite:test.db");
+		Statement statement = connection.createStatement();
+		String deleteSql = "delete from friends where id=" + id;
+		statement.executeUpdate(deleteSql);
 		showMenu();
 	}
 	private static void modify() throws IOException, SQLException {
