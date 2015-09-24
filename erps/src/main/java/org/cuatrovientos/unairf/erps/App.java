@@ -38,9 +38,14 @@ public class App
 		String insertSql = "insert into friends values(3,'Zoco')";
 		statement.executeUpdate(insertSql);
 	}
-	private static void deleteAll() throws IOException {
+	private static void deleteAll() throws IOException, SQLException {
 		
-		
+		Connection connection =
+				DriverManager.getConnection("jdbc:sqlite:test.db");
+		Statement statement = connection.createStatement();
+		String deleteSql = "delete from friends";
+		statement.executeUpdate(deleteSql);
+		showMenu();
 		showMenu();
 	}
 	private static void delete() throws IOException, SQLException {
@@ -148,23 +153,23 @@ public class App
     		break;
     	case 1: 
     		showAll();
-    		System.out.println("Showed all");
+    	//	System.out.println("Showed all");
     		break;
     	case 2: 
     		insert();
-    		System.out.println("Inserted");
+    		//System.out.println("Inserted");
     		break;
     	case 3:
     		modify();
-    		System.out.println("Modifying");
+    	//	System.out.println("Modifying");
     		break;
     	case 4:
     		delete();
-    		System.out.println("Deleting");
+    	//	System.out.println("Deleting");
     		break;
     	case 5:
     		deleteAll();
-    		System.out.println("Deleting all");
+    	//	System.out.println("Deleting all");
     		break;
     	
     	}
