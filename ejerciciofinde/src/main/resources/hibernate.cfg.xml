@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!-- Hibernate configuration file, here is were we set up hibernate db collection 
+	and mapping between classes and database tables. -->
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+	<session-factory>
+
+		<!-- Database connection settings -->
+    <property name="dialect">org.hibernate.dialect.HSQLDialect</property>
+    <property name="connection.driver_class">org.hsqldb.jdbcDriver</property>
+    <property name="connection.url">jdbc:hsqldb:mem:test</property>
+		<property name="connection.username">root</property>
+		<property name="connection.password"></property>
+
+		<property name="cache.provider_class">org.hibernate.cache.HashtableCacheProvider</property>
+
+		<property name="transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
+		<property name="current_session_context_class">thread</property>
+		<property name="hibernate.show_sql">true</property>
+
+		<property name="hbm2ddl.auto">create-drop</property>
+
+		<!-- Here comes the mapping definition - saved in resources dir with this 
+			hibernate config -->
+		<mapping
+			class="com.rodriguez.unai.ejerciciofinde.Pilot" />
+		<mapping
+			class="com.rodriguez.unai.ejerciciofinde.Aircraft" />
+
+	</session-factory>
+
+</hibernate-configuration>
